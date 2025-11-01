@@ -1,8 +1,13 @@
 # API de Scrapping de Livros e ML
 
 Este projeto implementa uma API Flask para servir dados de livros extraídos por web scraping do site `books.toscrape.com`.
+O projeto possui um link de deploy hospedado na Vercel, assim como possibilita a execução do código de forma local.
 
-## Setup Local
+## DIAGRAMA ARQUITETURAL
+
+![Arquitetura da API](api-scraper-books-jhoe.drawio.png)
+
+## Estrutura de pastas
 
     ```
     API_SCRAPPING_LIVROS_BOOKS_JHOE/
@@ -23,6 +28,76 @@ Este projeto implementa uma API Flask para servir dados de livros extraídos por
     │       └── ...
     └── vercel.json         # Configuração de deploy para a Vercel
     ```
+
+## ENDPOINTS IMPLEMENTADOS
+
+### 🔐 Autenticação (`/api/v1/auth`)
+
+Gerencia o acesso e autenticação de usuários via JWT.
+
+| Método | Endpoint | Descrição | Função Interna | Premissa de uso
+|:--------|:----------|:-----------|:----------------| :----------------|
+| **POST** | `/api/v1/auth/register` | Registra um novo usuário no sistema. | `post_api_v1_auth_register` | -Necessidade de encaminhar o raw body json: {"username": "Jhoe","password": "1234"}
+| **POST** | `/api/v1/auth/login` | Autentica o usuário e retorna o token JWT. | `post_api_v1_auth_login` | -Necessidade de encaminhar o raw body json: {"username": "Jhoe","password": "1234"}
+| **POST** | `/api/v1/auth/refresh` | Atualiza o token JWT expirado. | `post_api_v1_auth_refresh` | -Necessidade de utilizar o segundo token gerado no login
+
+Todos os endpoints com exceção do /apidocs, necessitam do token JWT.
+---
+
+### 📖 Livros (`/api/v1/books`)
+
+Permite consultar os livros armazenados no banco e realizar buscas.
+
+| Método | Endpoint | Descrição | Função Interna |
+|:--------|:----------|:-----------|:----------------|
+| **GET** | `/api/v1/books` | Retorna a lista completa de livros cadastrados. | `get_api_v1_books` |
+| **GET** | `/api/v1/books/search` | Pesquisa livros por título, autor ou categoria. | `get_api_v1_books_search` |
+| **GET** | `/api/v1/books/{upc}` | Retorna os detalhes de um livro específico via `UPC`. | `get_api_v1_books__upc_` |
+| **GET** | `/api/v1/categories/` | Lista todas as categorias disponíveis. | `get_api_v1_categories_` |
+
+---
+
+### 🧠 Scraping (`/api/v1/scraping`)
+
+Responsável por iniciar o processo de raspagem dos dados diretamente do site de origem.
+
+| Método | Endpoint | Descrição | Função Interna |
+|:--------|:----------|:-----------|:----------------|
+| **POST** | `/api/v1/scraping/trigger` | Executa o scraper e armazena os dados em `STAGE RAW CSV` e no banco H2. | `run_scrapper` |
+
+---
+
+###  Health Check (`/api/v1/health`)
+
+Endpoint para monitoramento e verificação de disponibilidade da API.
+
+| Método | Endpoint | Descrição | Função Interna |
+|:--------|:----------|:-----------|:----------------|
+| **GET** | `/api/v1/health` | Verifica se o serviço está ativo e respondendo. | `get_api_v1_health` |
+
+---
+
+### 📘 Documentação Swagger
+
+A documentação interativa gerada pelo **Flasgger** pode ser acessada em:
+
+ **`/apidocs`**  
+Exemplo:
+
+
+## CONFIGURAÇÃO ACESSAR ENDPOINT (Vercel)
+
+1. **DOMÍNIO**
+   ```bash
+   https://apiscrapingjhoe.vercel.app/
+   ```
+   
+2. **DOCUMENTAÇÃO ENDPOINTS**
+   ```bash
+   https://apiscrapingjhoe.vercel.app/apidocs/
+   ```
+    
+## CONFIGURAÇÃO EXECUÇÃO LOCAL (on-premises)
 
 1.  **Crie um ambiente virtual:**
     ```bash
@@ -45,8 +120,8 @@ Este projeto implementa uma API Flask para servir dados de livros extraídos por
     ```bash
     flask run
     ```
-    A API estará disponível em `http://127.0.0.1:5000`.
-    A documentação do Swagger estará em `http://127.0.0.1:5000/apidocs`.
+    A API estará disponível em `localhost:5000`.
+    A documentação do Swagger estará em `localhost/apidocs`.
 
 
 6.  **O scrapping é realizado através do endpoint**
@@ -54,9 +129,4 @@ Este projeto implementa uma API Flask para servir dados de livros extraídos por
     POST em `/api/v1/scraping/trigger`.
     ```
 
-## Deploy na Vercel
-
-1.  Faça o push do seu código para um repositório (GitHub, GitLab, etc.).
-2.  Importe o projeto no dashboard da Vercel.
-3.  Faça o deploy.
 
