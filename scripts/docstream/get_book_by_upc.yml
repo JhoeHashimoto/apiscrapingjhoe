@@ -1,0 +1,52 @@
+---
+tags:
+  - Books
+summary: Busca um livro específico pelo UPC
+description: Retorna os detalhes de um único livro com base no UPC (Universal Product Code) fornecido na URL.
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: upc
+    schema:
+      type: string
+    required: true
+    description: O UPC (Universal Product Code) do livro a ser buscado.
+responses:
+  200:
+    description: Detalhes do livro encontrado.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            upc:
+              type: string
+            title:
+              type: string
+            price_gbp:
+              type: string
+            rating:
+              type: string
+            availability:
+              type: string
+            category:
+              type: string
+            image_url:
+              type: string
+            source_url:
+              type: string
+  401:
+    description: Token JWT ausente ou inválido.
+  404:
+    description: Livro não encontrado com o UPC fornecido.
+  500:
+    description: Erro interno do servidor.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: "Database query failed"

@@ -1,0 +1,52 @@
+---
+tags:
+  - Authentication
+summary: Registra um novo usuário
+description: Cria um novo usuário no sistema com um nome de usuário e senha.
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          username:
+            type: string
+            example: "novo_usuario"
+          password:
+            type: string
+            example: "senha123"
+        required:
+          - username
+          - password
+responses:
+  201:
+    description: Usuário criado com sucesso.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            msg:
+              type: string
+              example: "User created"
+  400:
+    description: Usuário já existe.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: "User already exists"
+  415:
+    description: Content-Type inválido. Apenas application/json é aceito.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: "Content-Type must be application/json"

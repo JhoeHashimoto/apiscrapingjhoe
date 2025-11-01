@@ -1,0 +1,26 @@
+---
+tags:
+  - Authentication
+summary: Autentica um usuário e retorna tokens JWT
+description: Recebe credenciais (username e password) via JSON e retorna um access_token e um refresh_token em caso de sucesso.
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          username:
+            type: string
+            example: "meu_usuario"
+          password:
+            type: string
+            example: "senha123"
+        required:
+          - username
+          - password
+responses:
+  200:
+    description: Autenticação bem-sucedida. Retorna os tokens de acesso e refresh.
+  401:
+    description: Credenciais inválidas.

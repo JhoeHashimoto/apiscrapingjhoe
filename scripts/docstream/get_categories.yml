@@ -1,0 +1,29 @@
+---
+tags:
+  - Categories
+summary: Retorna todas as categorias de livros
+description: Retorna uma lista de todas as categorias únicas de livros cadastradas no banco de dados.
+security:
+  - bearerAuth: []
+responses:
+  200:
+    description: Uma lista de todas as categorias.
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: string
+            example: "Science Fiction"
+  401:
+    description: Token JWT ausente ou inválido.
+  500:
+    description: Erro interno do servidor ao tentar buscar as categorias.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: "Database query failed"

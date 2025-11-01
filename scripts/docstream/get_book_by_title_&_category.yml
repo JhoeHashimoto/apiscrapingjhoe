@@ -1,0 +1,60 @@
+---
+tags:
+  - Books
+summary: Busca livros por título e/ou categoria
+description: >-
+  Retorna uma lista de livros que correspondem aos critérios de busca (título e/ou categoria)
+  fornecidos via query parameters. A busca não é case-sensitive.
+security:
+  - bearerAuth: []
+parameters:
+  - in: query
+    name: title
+    schema:
+      type: string
+    required: false
+    description: Parte do título do livro para buscar (case-insensitive).
+  - in: query
+    name: category
+    schema:
+      type: string
+    required: false
+    description: Parte da categoria do livro para buscar (case-insensitive).
+responses:
+  200:
+    description: Uma lista de livros que correspondem aos critérios de busca (pode ser uma lista vazia).
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              upc:
+                type: string
+              title:
+                type: string
+              price_gbp:
+                type: string
+              rating:
+                type: string
+              availability:
+                type: string
+              category:
+                type: string
+              image_url:
+                type: string
+              source_url:
+                type: string
+  401:
+    description: Token JWT ausente ou inválido.
+  500:
+    description: Erro interno do servidor ao tentar buscar os livros.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: "Database query failed"

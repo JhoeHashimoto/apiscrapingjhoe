@@ -1,0 +1,45 @@
+---
+tags:
+  - Books
+summary: Retorna todos os livros cadastrados
+description: Retorna uma lista de todos os livros cadastrados no banco de dados.
+security:
+  - bearerAuth: []
+responses:
+  200:
+    description: Uma lista de todos os livros.
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              upc:
+                type: string
+              title:
+                type: string
+              price_gbp:
+                type: string
+              rating:
+                type: string
+              availability:
+                type: string
+              category:
+                type: string
+              image_url:
+                type: string
+              source_url:
+                type: string
+  401:
+    description: Token JWT ausente ou inválido.
+  500:
+    description: Erro interno do servidor ao tentar buscar os livros.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            error:
+              type: string
+              example: "Database query failed"

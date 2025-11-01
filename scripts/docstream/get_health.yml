@@ -1,0 +1,20 @@
+---
+tags:
+  - Health Check
+summary: Verifica a saúde da API (Liveness)
+description: Retorna um status "OK" para confirmar que a aplicação está no ar e respondendo a requisições.
+security:
+  - bearerAuth: []
+responses:
+  200:
+    description: A API está no ar e respondendo.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+              example: "OK, API no ar!"
+  401:
+    description: Token JWT ausente ou inválido.

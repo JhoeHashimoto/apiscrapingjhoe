@@ -1,0 +1,29 @@
+---
+tags:
+  - Scraping
+summary: Dispara o processo de web scraping
+description: Inicia o processo de web scraping para coletar dados dos livros. Esta é uma operação demorada e requer autenticação.
+security:
+  - bearerAuth: []
+responses:
+  200:
+    description: Scraping concluído com sucesso.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: string
+              example: "success"
+            message:
+              type: string
+              example: "Scraping concluído com sucesso!"
+            output_file:
+              type: string
+              example: "/path/to/output/books_YYYY-MM-DD_HHMMSS.json"
+            tempo_decorrido_minutos:
+              type: number
+              example: 15.72
+  401:
+    description: Token JWT ausente ou inválido.
