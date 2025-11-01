@@ -82,8 +82,6 @@ Endpoint para monitoramento e verificação de disponibilidade da API.
 A documentação interativa gerada pelo **Flasgger** pode ser acessada em:
 
  **`/apidocs`**  
-Exemplo:
-
 
 ## CONFIGURAÇÃO ACESSAR ENDPOINT (Vercel)
 
