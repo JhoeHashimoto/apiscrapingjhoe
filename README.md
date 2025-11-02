@@ -1,7 +1,6 @@
 # API de Scrapping de Livros e ML
 
-Este projeto implementa uma API Flask para servir dados de livros extraídos por web scraping do site `books.toscrape.com`.
-O projeto possui um link de deploy hospedado na Vercel, assim como possibilita a execução do código de forma local.
+Este projeto implementa uma API Flask para servir dados de livros extraídos por web scraping do site books.toscrape.com. O projeto possui um link de deploy hospedado na Vercel, assim como possibilita a execução do código de forma local e deployado no vercel. 
 
 # LINK DO VÍDEO
 
