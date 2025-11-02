@@ -3,6 +3,10 @@
 Este projeto implementa uma API Flask para servir dados de livros extraídos por web scraping do site `books.toscrape.com`.
 O projeto possui um link de deploy hospedado na Vercel, assim como possibilita a execução do código de forma local.
 
+# LINK DO VÍDEO
+
+`https://youtu.be/-VeZLHOeVnM`
+
 ## DIAGRAMA ARQUITETURAL
 
 ![Arquitetura da API](api-scraper-books-jhoe.drawio.png)
